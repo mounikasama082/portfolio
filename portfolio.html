@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mounika Sama — CS Engineer &amp; Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0F14;
+    --surface:#111823;
+    --surface-2:#161f2c;
+    --border:#22303f;
+    --text:#E8EDF2;
+    --muted:#8A96A3;
+    --amber:#FF8A3D;
+    --amber-dim:#C96A2B;
+    --teal:#4FD1C5;
+    --radius:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(600px 400px at 85% -5%, rgba(255,138,61,0.10), transparent 60%),
+      radial-gradient(500px 350px at -5% 15%, rgba(79,209,197,0.08), transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+  ::selection{ background:var(--amber); color:#0B0F14; }
+
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{ content:""; width:24px; height:1px; background:var(--amber); display:inline-block; }
+
+  a{ color:inherit; text-decoration:none; }
+  .container{ max-width:1080px; margin:0 auto; padding:0 32px; position:relative; z-index:1; }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,15,20,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav.container{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+  }
+  .logo{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:0.95rem; }
+  .logo span{ color:var(--amber); }
+  .navlinks{ display:flex; gap:28px; font-family:'JetBrains Mono', monospace; font-size:0.82rem; color:var(--muted); }
+  .navlinks a{ transition:color .2s; position:relative; }
+  .navlinks a:hover{ color:var(--text); }
+  .navlinks a::after{
+    content:""; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:var(--amber);
+    transition:width .25s;
+  }
+  .navlinks a:hover::after{ width:100%; }
+  .nav-cta{
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    border:1px solid var(--amber-dim); color:var(--amber);
+    padding:8px 16px; border-radius:6px; transition:.2s;
+  }
+  .nav-cta:hover{ background:var(--amber); color:#0B0F14; }
+  .navtoggle{ display:none; background:none; border:none; color:var(--text); font-size:1.4rem; cursor:pointer; }
+
+  /* HERO */
+  .hero{ padding:88px 0 64px; position:relative; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center; }
+  .hero h1{ font-size:clamp(2.3rem, 4.2vw, 3.4rem); line-height:1.08; margin-bottom:18px; }
+  .hero h1 em{ font-style:italic; color:var(--amber); font-weight:500; }
+  .hero p.lede{ color:var(--muted); font-size:1.05rem; max-width:46ch; margin-bottom:30px; }
+  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:'JetBrains Mono', monospace; font-size:0.85rem;
+    padding:12px 22px; border-radius:7px; display:inline-flex; align-items:center; gap:8px;
+    transition:.2s; border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--amber); color:#0B0F14; font-weight:600; }
+  .btn-primary:hover{ background:#ffa564; transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--border); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--amber-dim); color:var(--amber); }
+
+  /* TERMINAL */
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px; background:var(--surface-2); border-bottom:1px solid var(--border);
+  }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .dot.r{ background:#FF5F57; } .dot.y{ background:#FEBC2E; } .dot.g{ background:#28C840; }
+  .term-title{ margin-left:8px; font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--muted); }
+  .term-body{ padding:22px 20px; font-family:'JetBrains Mono', monospace; font-size:0.84rem; min-height:230px; }
+  .term-line{ margin-bottom:12px; opacity:0; animation:fadeIn .4s forwards; }
+  .term-prompt{ color:var(--teal); }
+  .term-out{ color:var(--muted); padding-left:18px; display:block; margin-top:4px; }
+  .term-cursor{ display:inline-block; width:7px; height:14px; background:var(--amber); margin-left:4px; vertical-align:middle; animation:blink 1s step-end infinite; }
+  @keyframes fadeIn{ to{ opacity:1; } }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* SECTIONS */
+  section{ padding:84px 0; border-top:1px solid var(--border); position:relative; z-index:1; }
+  .section-head{ margin-bottom:44px; max-width:640px; }
+  .section-head h2{ font-size:clamp(1.7rem, 3vw, 2.2rem); }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:48px; }
+  .about-grid p{ color:var(--muted); font-size:1.02rem; margin-bottom:16px; }
+  .stat-list{ display:flex; flex-direction:column; gap:22px; }
+  .stat{ border-left:2px solid var(--amber-dim); padding-left:16px; }
+  .stat .num{ font-family:'Fraunces', serif; font-size:1.9rem; color:var(--text); }
+  .stat .label{ font-family:'JetBrains Mono', monospace; font-size:0.74rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+
+  /* SKILLS */
+  .skill-groups{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:22px; }
+  .skill-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+  .skill-card h3{ font-family:'JetBrains Mono', monospace; font-size:0.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--teal); margin-bottom:12px; font-weight:600; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:'JetBrains Mono', monospace; font-size:0.76rem;
+    background:var(--surface-2); border:1px solid var(--border); color:var(--text);
+    padding:5px 10px; border-radius:5px;
+  }
+
+  /* PROJECTS */
+  .project{
+    display:grid; grid-template-columns:220px 1fr; gap:28px;
+    padding:32px 0; border-bottom:1px solid var(--border);
+  }
+  .project:first-child{ padding-top:0; }
+  .project:last-child{ border-bottom:none; }
+  .project-meta{ font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--muted); }
+  .project-meta .date{ display:block; margin-top:6px; color:var(--amber); }
+  .project h3{ font-size:1.25rem; margin-bottom:6px; }
+  .project .stack{ font-family:'JetBrains Mono', monospace; font-size:0.74rem; color:var(--teal); margin-bottom:14px; display:block; }
+  .project ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .project li{ color:var(--muted); font-size:0.94rem; padding-left:18px; position:relative; }
+  .project li::before{ content:"▸"; position:absolute; left:0; color:var(--amber-dim); }
+
+  /* TIMELINE (education + certs) */
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+  .timeline-item{ margin-bottom:26px; padding-left:20px; border-left:2px solid var(--border); position:relative; }
+  .timeline-item::before{ content:""; position:absolute; left:-6px; top:2px; width:10px; height:10px; border-radius:50%; background:var(--bg); border:2px solid var(--amber); }
+  .timeline-item h4{ font-family:'Fraunces', serif; font-size:1.05rem; font-weight:600; }
+  .timeline-item .org{ font-family:'JetBrains Mono', monospace; font-size:0.76rem; color:var(--muted); margin:4px 0; }
+  .timeline-item .detail{ font-size:0.88rem; color:var(--muted); }
+  .timeline-item .detail strong{ color:var(--teal); font-weight:600; }
+
+  /* CONTACT / FOOTER */
+  .contact{ text-align:center; }
+  .contact h2{ font-size:clamp(1.9rem,4vw,2.8rem); margin-bottom:14px; }
+  .contact p{ color:var(--muted); max-width:50ch; margin:0 auto 32px; }
+  .contact-links{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:56px; }
+  footer{ text-align:center; padding:28px 0 40px; font-family:'JetBrains Mono', monospace; font-size:0.74rem; color:var(--muted); border-top:1px solid var(--border); }
+  footer span{ color:var(--amber); }
+
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (max-width: 860px){
+    .hero-grid, .about-grid, .two-col{ grid-template-columns:1fr; }
+    .project{ grid-template-columns:1fr; }
+    .navlinks{ display:none; }
+    .navtoggle{ display:block; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <div class="logo">mounika<span>.</span>sama</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#education">education</a>
+      <a href="#contact">contact</a>
+    </div>
+    <a class="nav-cta" href="mailto:mounikasama082@gmail.com">say hello →</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">open to internships · jul–dec 2026</div>
+      <h1>Mounika Sama<br><em>builds</em> data into decisions.</h1>
+      <p class="lede">Computer Science undergraduate at CBIT, Hyderabad, working across AI pipelines, data analytics, and full-stack products — turning raw datasets and ideas into things people can actually use.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">mounika@cbit ~ %</span>
+      </div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container about-grid">
+    <div class="reveal">
+      <div class="eyebrow">about</div>
+      <h2 style="margin-bottom:20px;">Analytical thinking, engineered.</h2>
+      <p>I'm a Computer Science undergraduate with hands-on experience across data analysis, software engineering, and AI-powered applications. I like transforming raw data into insight, then shipping it as something scalable and user-focused.</p>
+      <p>My work sits at the intersection of two habits: reading a dataset carefully enough to trust a conclusion, and writing the systems that make that conclusion usable — dashboards, pipelines, and products, not just notebooks.</p>
+    </div>
+    <div class="stat-list reveal">
+      <div class="stat"><div class="num">8.65 / 10</div><div class="label">CGPA · CBIT Hyderabad</div></div>
+      <div class="stat"><div class="num">5</div><div class="label">Shipped projects — AI, data, full-stack</div></div>
+      <div class="stat"><div class="num">4</div><div class="label">Certifications completed</div></div>
+      <div class="stat"><div class="num">2027</div><div class="label">Expected graduation</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">skills</div>
+      <h2>The toolkit, by role.</h2>
+    </div>
+    <div class="skill-groups reveal">
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">SQL</span><span class="chip">R (basics)</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Data &amp; Visualization</h3>
+        <div class="chip-row">
+          <span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span><span class="chip">Seaborn</span><span class="chip">Power BI</span><span class="chip">Tableau (basics)</span><span class="chip">Excel (advanced)</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>AI / ML</h3>
+        <div class="chip-row">
+          <span class="chip">Scikit-learn</span><span class="chip">TensorFlow</span><span class="chip">Groq API</span><span class="chip">Gemini AI</span><span class="chip">NLP fundamentals</span><span class="chip">Prompt engineering</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Backend</h3>
+        <div class="chip-row">
+          <span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">Flask</span><span class="chip">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Frontend</h3>
+        <div class="chip-row">
+          <span class="chip">React.js</span><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Databases</h3>
+        <div class="chip-row">
+          <span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">MongoDB Atlas</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Tools &amp; Cloud</h3>
+        <div class="chip-row">
+          <span class="chip">Git / GitHub</span><span class="chip">Docker (basics)</span><span class="chip">AWS fundamentals</span><span class="chip">Jupyter</span><span class="chip">Google Colab</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Core CS</h3>
+        <div class="chip-row">
+          <span class="chip">DSA</span><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">Operating Systems</span><span class="chip">Networks</span><span class="chip">Statistics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">projects</div>
+      <h2>Five builds, one habit — ship it end to end.</h2>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">01<span class="date">Feb – Apr 2026</span></div>
+      <div>
+        <h3>AI-Driven PDF-to-Podcast Generator</h3>
+        <span class="stack">Python · Groq API · Transformer models · TTS · OCR</span>
+        <ul>
+          <li>Designed an end-to-end agentic pipeline that autonomously converts PDF documents into structured, multi-speaker podcast audio — covering OCR, LLM-based summarization, dialogue generation, and TTS synthesis.</li>
+          <li>Engineered a chunking and parallel processing strategy to handle large documents at scale, keeping contextual coherence across segments while reducing latency.</li>
+          <li>Built a modular, stage-decoupled architecture enabling independent testing and replacement of pipeline components — mirroring production-grade distributed service design.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">02<span class="date">2026</span></div>
+      <div>
+        <h3>Smart Nearby Decision Engine (NearIQ)</h3>
+        <span class="stack">React 19 · Flask · MongoDB Atlas · Google Maps API · Gemini AI</span>
+        <ul>
+          <li>Built a full-stack AI recommendation engine that processes real-time location signals and user context to surface ranked, context-aware suggestions via a weighted multi-factor scoring model.</li>
+          <li>Integrated Gemini AI for NLP-based intent extraction and dynamic result categorization; architected scalable backend services for search history, API orchestration, and multi-user personalization.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">03<span class="date">2025</span></div>
+      <div>
+        <h3>E-Commerce Sales Analytics Dashboard</h3>
+        <span class="stack">Python · Pandas · Power BI · MySQL · Scikit-learn</span>
+        <ul>
+          <li>Built an end-to-end analytics pipeline ingesting 100k+ row transactional datasets; performed data cleaning, feature engineering, and cohort analysis to surface revenue trends and retention patterns.</li>
+          <li>Developed an interactive Power BI dashboard with KPI cards, drill-through filters, and time-series forecasts for spotting top-performing SKUs and seasonal demand shifts.</li>
+          <li>Applied a linear regression churn-prediction model in Scikit-learn achieving 82% accuracy, used to prioritize high-value customer segments for retention campaigns.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">04<span class="date">2025</span></div>
+      <div>
+        <h3>Student Performance Analyzer</h3>
+        <span class="stack">Python · Pandas · Seaborn · Matplotlib · Jupyter</span>
+        <ul>
+          <li>Conducted exploratory data analysis on a 10,000-record academic dataset, uncovering correlations between study hours, attendance, socioeconomic indicators, and exam outcomes via statistical hypothesis testing.</li>
+          <li>Produced a visual report with heatmaps, box plots, and regression charts; findings informed recommendations for targeted academic interventions.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">05<span class="date">2026</span></div>
+      <div>
+        <h3>DevTask — Real-Time Collaborative Task Manager</h3>
+        <span class="stack">React · Node.js · Express · PostgreSQL · Socket.io</span>
+        <ul>
+          <li>Engineered a real-time task management platform with WebSocket-powered live updates, role-based access control, and drag-and-drop Kanban boards for concurrent multi-user collaboration.</li>
+          <li>Designed a normalized PostgreSQL schema with optimized indexes; implemented JWT-based authentication and RESTful APIs consumed by the React frontend.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container two-col">
+    <div class="reveal">
+      <div class="section-head" style="margin-bottom:28px;">
+        <div class="eyebrow">education</div>
+        <h2>Foundations.</h2>
+      </div>
+      <div class="timeline-item">
+        <h4>B.E. in Computer Science Engineering</h4>
+        <div class="org">Chaitanya Bharathi Institute of Technology (CBIT), Hyderabad · Expected 2027</div>
+        <div class="detail">CGPA: <strong>8.65 / 10</strong></div>
+      </div>
+      <div class="timeline-item">
+        <h4>Intermediate (MPC)</h4>
+        <div class="org">Narayana Junior College, Kuntloor, Hyderabad · 2021 – 2023</div>
+        <div class="detail">Score: <strong>97%</strong></div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="section-head" style="margin-bottom:28px;">
+        <div class="eyebrow">certifications</div>
+        <h2>Training.</h2>
+      </div>
+      <div class="timeline-item">
+        <h4>Google Data Analytics Professional Certificate</h4>
+        <div class="org">Coursera / Google · 2025</div>
+        <div class="detail">8-course program covering the full data analysis lifecycle — cleaning, SQL, R, Tableau, and a business capstone.</div>
+      </div>
+      <div class="timeline-item">
+        <h4>Applied AI — Build an AI Agent</h4>
+        <div class="org">CSRBOX Winter Program · Dec 2024 – Jan 2025</div>
+        <div class="detail">Built an NLP-based agentic movie recommendation system integrating TMDB API, Python, and fuzzy matching.</div>
+      </div>
+      <div class="timeline-item">
+        <h4>Programming in Java</h4>
+        <div class="org">NPTEL, IIT Kharagpur · Jul – Oct 2024</div>
+        <div class="detail">Core Java, OOP principles, and software design.</div>
+      </div>
+      <div class="timeline-item">
+        <h4>SQL for Data Science</h4>
+        <div class="org">Coursera / UC Davis · 2024</div>
+        <div class="detail">Advanced querying, window functions, subqueries, and data manipulation across relational databases.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container contact reveal">
+    <div class="eyebrow" style="justify-content:center;">contact</div>
+    <h2>Let's build something.</h2>
+    <p>Open to internships in data analytics, software engineering, and AI/ML from July through December 2026. Reach out — I reply quickly.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:mounikasama082@gmail.com">mounikasama082@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:+919346379039">+91 93463 79039</a>
+      <a class="btn btn-ghost" href="#">LinkedIn</a>
+      <a class="btn btn-ghost" href="#">GitHub</a>
+      <a class="btn btn-ghost" href="#">LeetCode</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  built by <span>Mounika Sama</span> — Hyderabad, India © 2026
+</footer>
+
+<script>
+  // Terminal typing sequence
+  const lines = [
+    { p: "whoami", o: "Mounika Sama — CSE @ CBIT, Hyderabad · CGPA 8.65" },
+    { p: "cat focus.json", o: '["AI pipelines", "Data analytics", "Full-stack products"]' },
+    { p: "ls projects/", o: "podcast-generator  nearIQ  sales-dashboard  devtask  student-analyzer" },
+    { p: "status --internship", o: "Open · Jul – Dec 2026 · Hyderabad / Remote" }
+  ];
+  const body = document.getElementById('termBody');
+  let delay = 300;
+  lines.forEach((line, i) => {
+    const el = document.createElement('div');
+    el.className = 'term-line';
+    el.style.animationDelay = delay + 'ms';
+    el.innerHTML = `<span class="term-prompt">$</span> ${line.p}<span class="term-out">${line.o}</span>`;
+    body.appendChild(el);
+    delay += 550;
+  });
+  setTimeout(() => {
+    const cursorLine = document.createElement('div');
+    cursorLine.className = 'term-line';
+    cursorLine.style.opacity = '1';
+    cursorLine.innerHTML = `<span class="term-prompt">$</span> <span class="term-cursor"></span>`;
+    body.appendChild(cursorLine);
+  }, delay);
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
